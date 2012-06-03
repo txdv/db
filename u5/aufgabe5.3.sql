@@ -23,8 +23,8 @@ GROUP BY k.kontonr
 
 -- c.)
 
-SELECT konto.name, COUNT(*) as count FROM kunde, konto
-WHERE kunde.kundennr = konto.kundennr
+SELECT konto.name, COUNT(*) FROM kunde
+INNER JOIN konto USING (kundennr)
 GROUP BY konto.name
 ORDER BY count LIMIT 1;
 
