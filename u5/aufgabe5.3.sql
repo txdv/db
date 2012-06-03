@@ -1,18 +1,12 @@
 
 -- a.)
 
-SELECT konto.name, COUNT(*) FROM kunde, konto, ueberweisung as u
-WHERE kunde.blz = konto.blz AND kunde.kundennr = konto.kundennr AND kunde.blz = u.blz AND konto.kontonr = u.kontonr
-GROUP BY konto.name, kunde.kundennr
+SELECT konto.name, COUNT(*) FROM kunde
+INNER JOIN konto        USING (blz, kundennr)
+INNER JOIN ueberweisung USING (blz, kontonr)
+GROUP BY konto.name, kunde.kundennr;
 -- brauchen wir nicht, da mindenstens eins mit der existenz gleich steht
 -- HAVING COUNT(*) > 0
-
--- Eine kuerzere und uebersichtlichere Variante:
-
-SELECT konto.name, COUNT(*) FROM kunde
-INNER JOIN konto        USING (blz, kundennr) 
-INNER JOIN ueberweisung USING (blz, kontonr)
-GROUP BY konto.name, kunde.kundennr; 
 
 -- b.)
 
